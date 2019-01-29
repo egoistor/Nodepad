@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Notepad</string>
+    <string name="title_activity_eidt">EidtActivity</string>
+    <string name="title_activity_delete">DeleteActivity</string>
+
+
+</resources>
