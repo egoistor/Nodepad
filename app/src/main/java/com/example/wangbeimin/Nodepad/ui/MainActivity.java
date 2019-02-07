@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
@@ -19,6 +20,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.wangbeimin.Nodepad.R;
+import com.example.wangbeimin.Nodepad.utils.DividerItemDecoration;
 import com.example.wangbeimin.Nodepad.utils.Note;
 import com.example.wangbeimin.Nodepad.utils.NoteAdapter;
 import com.example.wangbeimin.Nodepad.utils.NoteList;
@@ -54,6 +56,16 @@ public class MainActivity extends AppCompatActivity {
         search();
     }
 
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        ininView();
+        addData();
+        ininDataBase();
+        ininRecycleView(noteList);
+        search();
+    }
+
     public void search(){
         final EditText searchMessage = findViewById(R.id.search_message);
         Button beginSearch = findViewById(R.id.begin_search);
@@ -73,6 +85,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void addData(){
         htmlData = getIntent().getStringExtra("message");
+        htmlData = getIntent().getStringExtra("DeleteMessage");
         if (htmlData!=null){
             Note note = new Note();
             note.setMessage(htmlData);
@@ -84,6 +97,7 @@ public class MainActivity extends AppCompatActivity {
             note.setSecond(calendar.get(Calendar.SECOND));
             note.save();
         }
+
     }
 
     public void ininDataBase(){
@@ -106,6 +120,7 @@ public class MainActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(layoutManager);
         Collections.reverse(noteList);
         final NoteAdapter adapter = new NoteAdapter(noteList);
+        recyclerView.addItemDecoration(new DividerItemDecoration(MainActivity.this,DividerItemDecoration.VERTICAL_LIST));
         recyclerView.setAdapter(adapter);
 
         adapter.setRecyclerViewOnItemClickListener(new NoteAdapter.RecyclerViewOnItemClickListener() {

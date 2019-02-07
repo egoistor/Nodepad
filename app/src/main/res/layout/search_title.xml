@@ -7,12 +7,15 @@
     <EditText
         android:id="@+id/search_message"
         android:hint="添加搜索内容"
+        android:textColorHint="@color/colorBack"
         android:layout_width="0dp"
         android:layout_weight="1"
         android:layout_height="match_parent"/>
 
     <Button
+        android:background="@color/colorMid"
         android:id="@+id/begin_search"
+        android:textColor="@color/colorBack"
         android:text="搜索"
         android:layout_width="wrap_content"
         android:layout_height="match_parent" />

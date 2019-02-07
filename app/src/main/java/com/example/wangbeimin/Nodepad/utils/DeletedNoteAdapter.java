@@ -73,11 +73,30 @@ public class DeletedNoteAdapter extends RecyclerView.Adapter<NoteAdapter.ViewHol
     public void onBindViewHolder(final NoteAdapter.ViewHolder holder, int position) {
 
         DeletedNote Note = myNoteList.get(position);
-        holder.NoteName.setText(Note.getMessage());
+        holder.NoteName.setText(isChinese(Note.getMessage()));
         holder.TimeShow.setText(Note.getYear()+"/"+Note.getMonth()+"/"+Note.getDay());
         holder.itemView.setTag(position);
     }
 
+    public boolean isChinese(char c) {
+        return c >= 0x4E00 && c <= 0x9FA5;
+    }
+
+    public String isChinese(String str) {
+        String chinses="";
+        for (char c : str.toCharArray()) {
+            if (isChinese(c)) {
+                chinses+=c;
+                if (chinses.length()>10){
+                    break;
+                }
+            }
+        }
+        if (chinses==""){
+            chinses="无汉语内容，你写什么笔记";
+        }
+        return chinses;
+    }
 
     @Override
     public int getItemCount() {

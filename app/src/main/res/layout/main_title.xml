@@ -10,15 +10,20 @@
         android:layout_width="0dp"
         android:layout_weight="1"
         android:text="Nodepad"
+        android:textColor="@color/colorTitle"
         android:layout_height="wrap_content" />
 
     <Button
+        android:background="@color/colorMid"
         android:id="@+id/goEdit"
         android:text="新建文件"
+        android:textColor="@color/colorBack"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 
     <Button
+        android:background="@color/colorMid"
+        android:textColor="@color/colorBack"
         android:id="@+id/goDelete"
         android:text="回收站"
         android:layout_width="wrap_content"

@@ -6,6 +6,7 @@
 
     <TextView
         android:textSize="36dp"
+        android:textColor="@color/colorTitle"
         android:id="@+id/title_text"
         android:layout_width="0dp"
         android:layout_weight="1"
@@ -14,6 +15,8 @@
 
 
     <Button
+        android:background="@color/colorMid"
+        android:textColor="@color/colorBack"
         android:id="@+id/delete_all"
         android:text="删除全部"
         android:layout_width="wrap_content"

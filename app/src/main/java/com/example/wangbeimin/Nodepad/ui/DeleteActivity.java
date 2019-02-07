@@ -20,6 +20,7 @@ import android.widget.Toast;
 import com.example.wangbeimin.Nodepad.R;
 import com.example.wangbeimin.Nodepad.utils.DeletedNote;
 import com.example.wangbeimin.Nodepad.utils.DeletedNoteAdapter;
+import com.example.wangbeimin.Nodepad.utils.DividerItemDecoration;
 import com.example.wangbeimin.Nodepad.utils.Note;
 import com.example.wangbeimin.Nodepad.utils.NoteAdapter;
 
@@ -42,6 +43,15 @@ public class DeleteActivity extends AppCompatActivity {
         setContentView(R.layout.activity_delete);
         LitePal.initialize(this);
         SQLiteDatabase db = LitePal.getDatabase();
+        ininView();
+        addData();
+        ininDataBase();
+        ininRecycleView();
+    }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
         ininView();
         addData();
         ininDataBase();
@@ -84,6 +94,7 @@ public class DeleteActivity extends AppCompatActivity {
         Collections.reverse(noteList);
         //Toast.makeText(this,""+noteList.size(),Toast.LENGTH_SHORT).show();
         final DeletedNoteAdapter adapter = new DeletedNoteAdapter(noteList);
+        recyclerView.addItemDecoration(new DividerItemDecoration(DeleteActivity.this,DividerItemDecoration.VERTICAL_LIST));
         recyclerView.setAdapter(adapter);
 
         adapter.setRecyclerViewOnItemClickListener(new NoteAdapter.RecyclerViewOnItemClickListener() {
@@ -107,7 +118,7 @@ public class DeleteActivity extends AppCompatActivity {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                        Intent intent = new Intent(DeleteActivity.this,MainActivity.class);
-                        intent.putExtra("message", htmlData);
+                        intent.putExtra("DeleteMessage", htmlData);
                         startActivity(intent);
                         String newHtmlData = noteList.get(position).getMessage();
                         LitePal.deleteAll(DeletedNote.class,"message == ?",newHtmlData);
@@ -118,6 +129,8 @@ public class DeleteActivity extends AppCompatActivity {
                     public void onClick(DialogInterface dialog, int which) {
                         String newHtmlData = noteList.get(position).getMessage();
                         LitePal.deleteAll(DeletedNote.class,"message == ?",newHtmlData);
+                        ininDataBase();
+                        ininRecycleView();
                     }
                 });
                 dialog.create().show();
@@ -145,6 +158,8 @@ public class DeleteActivity extends AppCompatActivity {
                     public void onClick(DialogInterface dialog, int which) {
                         LitePal.deleteAll(DeletedNote.class);
                         noteList.clear();
+                        ininDataBase();
+                        ininRecycleView();
                     }
                 });
                 dialog.setNegativeButton("否", new DialogInterface.OnClickListener() {
