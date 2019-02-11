@@ -41,7 +41,8 @@ public class MainActivity extends AppCompatActivity {
     private Button edit;
     private Button delete;
     final Calendar calendar = Calendar.getInstance();
-    private String htmlData;
+    private String htmlData1;
+    private String htmlData2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -84,11 +85,11 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void addData(){
-        htmlData = getIntent().getStringExtra("message");
-        htmlData = getIntent().getStringExtra("DeleteMessage");
-        if (htmlData!=null){
+        htmlData1 = getIntent().getStringExtra("message");
+        htmlData2 = getIntent().getStringExtra("DeleteMessage");
+        if (htmlData1!=null){
             Note note = new Note();
-            note.setMessage(htmlData);
+            note.setMessage(htmlData1);
             note.setYear(calendar.get(Calendar.YEAR));
             note.setMonth(calendar.get(Calendar.MONTH)+1);
             note.setDay(calendar.get(Calendar.DAY_OF_MONTH));
@@ -97,7 +98,17 @@ public class MainActivity extends AppCompatActivity {
             note.setSecond(calendar.get(Calendar.SECOND));
             note.save();
         }
-
+        if (htmlData2!=null){
+            Note note = new Note();
+            note.setMessage(htmlData2);
+            note.setYear(calendar.get(Calendar.YEAR));
+            note.setMonth(calendar.get(Calendar.MONTH)+1);
+            note.setDay(calendar.get(Calendar.DAY_OF_MONTH));
+            note.setHour( calendar.get(Calendar.HOUR_OF_DAY));
+            note.setMinute(calendar.get(Calendar.MINUTE));
+            note.setSecond(calendar.get(Calendar.SECOND));
+            note.save();
+        }
     }
 
     public void ininDataBase(){
